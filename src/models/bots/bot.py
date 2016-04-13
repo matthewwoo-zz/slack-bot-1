@@ -1,5 +1,6 @@
 from slackclient import SlackClient
-import src.models.bots.constants as BotConstants
+import src.common.constants as BotConstants
+
 
 class Bot(object):
     def __init__(self, token=None, username=None):
