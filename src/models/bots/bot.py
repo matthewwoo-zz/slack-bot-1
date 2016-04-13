@@ -5,7 +5,7 @@ import src.common.constants as BotConstants
 class Bot(object):
     def __init__(self, token=None, username=None):
         self.token = BotConstants.TOKEN if token is None else None
-        self.username = BotConstants.USERNAME if username is None else None
+        self.username = BotConstants.BOTNAME if username is None else None
 
     def __repr__(self):
         print "{}, {}".format(self.token, self.username)
