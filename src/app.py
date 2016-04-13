@@ -21,8 +21,9 @@ if sc.rtm_connect():
             raw_message = json.dumps(evt)
             json_message = json.loads(raw_message)
             try:
-                text = json_message['messages'][0]['text']
-                print text
+                text = json_message['text']
+            except:
+                pass
             try:
                 pattern = re.compile(".{}.".format(username))
                 match = pattern.search(text)
