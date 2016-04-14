@@ -1,5 +1,11 @@
+import json
+
+import re
+
+import time
 from slackclient import SlackClient
 import src.common.constants as BotConstants
+from src.app import username
 
 
 class Bot(object):
@@ -17,3 +23,25 @@ class Bot(object):
             "chat.postMessage", channel="#general", text="Hello from Python! :tada:",
             username=self.username, as_user="false", icon_emoji=':robot_face:'
         )
+
+    def read(self):
+        sc = SlackClient(self.token)
+        if sc.rtm_connect():
+            while True:
+                new_evts = sc.rtm_read()
+                for evt in new_evts:
+                    try:
+                        text = evt['text']
+                    except:
+                        pass
+                    try:
+                        pattern = re.compile(".{}.".format(username))
+                        match = pattern.search(text)
+                        user = match.group()
+                        if user == BotConstants.USERNAME2:
+                            Bot().post_message()
+                    except:
+                        pass
+                time.sleep(1)
+        else:
+            print "Connection failed"

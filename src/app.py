@@ -13,15 +13,12 @@ username = SlackConstants.USERNAME
 
 sc = SlackClient(token)
 
-
 if sc.rtm_connect():
     while True:
         new_evts = sc.rtm_read()
         for evt in new_evts:
-            raw_message = json.dumps(evt)
-            json_message = json.loads(raw_message)
             try:
-                text = json_message['text']
+                text = evt['text']
             except:
                 pass
             try:
@@ -35,7 +32,6 @@ if sc.rtm_connect():
         time.sleep(1)
 else:
     print "Connection failed"
-
     # for evt in new_evts:
     #     print(evt)
     #     if "type" in evt:
